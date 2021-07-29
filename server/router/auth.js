@@ -1,6 +1,9 @@
+const jwt = require('jsonwebtoken');
 const express = require(`express`);
-
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+
+
 
 require('../DB/conn');
 const User = require("../model/userSchema");
@@ -88,6 +91,7 @@ router.post('/signin', async (req, res) => {
     // console.log(req.body);
     // res.json({ message:"awesome"});
     try{
+        let token;
         const { email,password } =req.body;
 
         if( !email || !password){
@@ -99,10 +103,28 @@ router.post('/signin', async (req, res) => {
 
         const userLogin = await User.findOne({ email:email });
 
-        if(!userLogin){
-            res.status(400).json({error:"User error"});
+        // console.log(userLogin);
+
+
+        if(userLogin){
+            const isMatch = await bcrypt.compare(password, userLogin.password);
+
+            token = await userLogin.generateAuthToken();
+            console.log(token);
+
+            res.cookie("jwtoken", token, {
+                expires: new Date(Date.now() + 2592000000),
+                //httpOnly: true
+
+            });
+
+            if(!isMatch){
+                res.status(400).json({error:"invalid credentials"});
+            }else{
+                res.json({message:"user signin successfully"});
+            }
         }else{
-            res.json({message:"user signin successfully"});
+            res.status(400).json({error:"invalid credentials"});
         }
        
 
