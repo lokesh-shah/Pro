@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const express = require(`express`);
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-
+const authenticate = require('../middleware/authenticate');
 
 
 require('../DB/conn');
@@ -110,8 +110,7 @@ router.post('/signin', async (req, res) => {
             const isMatch = await bcrypt.compare(password, userLogin.password);
 
             token = await userLogin.generateAuthToken();
-            console.log(token);
-
+            // console.log(token);
             res.cookie("jwtoken", token, {
                 expires: new Date(Date.now() + 2592000000),
                 //httpOnly: true
@@ -133,5 +132,41 @@ router.post('/signin', async (req, res) => {
     }
 
 })
+
+//about us Page
+
+router.get('/about',authenticate, (req , res)=> {
+    console.log('****Hello About*****')
+    res.send(req.rootUser);
+});
+
+//get user data for contact page and home page
+router.get('/getData',authenticate,(req,res)=>{
+    console.log('contact page');
+    res.send(req.rootUser);
+});
+
+//contact us page
+router.post('/contact', authenticate,async(req , res)=> {
+    try{
+        const {name, email, message} = req.body;
+
+        if(!name || !email || !message){
+            console.log("error in contact form");
+            return res.json({error:"Please fill the contact form"});
+        }
+
+        const userContact = await User.findOne({_id:req.userID})
+
+        if(userContact){
+            const userMessage = await userContact.addMessage(name,email,message);
+
+            await userContact.save();
+            res.status(201).json({message:"user Contacted successfully"});
+        }
+    }catch(err){
+        console.log(err);
+    }
+});
 
 module.exports = router;

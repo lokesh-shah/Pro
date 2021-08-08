@@ -1,0 +1,84 @@
+.container {
+  margin-top: 6%;
+  border-radius: 1em;
+  /* background-color: rgba(109, 153, 149, 0.73); */
+  background-color:rgba(169,169,169,0.4);
+}
+
+.form-group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.form-field {
+  background:0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom:  1px solid black;
+  outline: none;
+  max-width: 400px;
+}
+
+::placeholder{
+  color:rgba(9, 58, 54, 0.73);
+  /* font-size: 1.5em; */
+}
+
+/* signup image size */
+img {
+  width: 400px;
+  height: 300px;
+}
+
+.RegisterPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  margin-top: 10px;
+  font-family: "copperplate",fantasy;
+  text-transform: uppercase;
+  margin-top: 30px;
+}
+
+.form-button {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding-left: 20px;
+  border-radius:5px;
+  cursor: pointer;
+  transition:0.3s;
+  transition-property: background;
+  border: none;
+ 
+}
+
+.form-button input {
+  background-color: rgba(69, 182, 174, 0.7);
+  letter-spacing:1px;
+  border: none;
+  border-radius: 5px;
+  width:80px;
+  height:30px;
+}
+
+.form-button input:hover{
+  background-color: rgba(85, 151, 147, 0.7);
+}
+
+.signup-image {
+  margin-left: 80px;
+}
+
+#signup-link {
+  margin-left: 120px;
+  color: black;
+}

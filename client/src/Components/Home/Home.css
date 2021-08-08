@@ -1,0 +1,27 @@
+.container-homepage {
+  margin-top: 6%;
+  border-radius: 1em;
+  /* background-color: rgba(109, 153, 149, 0.73); */
+  background-color: rgba(169,169,169,0.4);
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
+  margin-top:200px;
+}
+
+.home-div p{
+    float: center;  
+    margin: 100px;
+    font-family: fantasy;
+    text-transform: uppercase;
+    
+}
+
+h1{
+    font-family: Georgia;
+  background:0;
+  margin-right: 100px;
+  outline: none;
+  max-width: 400px;
+}
+
